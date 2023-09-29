@@ -1,6 +1,36 @@
-{% extends 'accounts/main.html' %}
-{% block content %}
+{% extends 'accounts/main.html' %} {% block content %} {% include 'accounts/status.html' %}
 
-<h1>Dashboard</h1>
-
+<br />
+<div class="row">
+  <div class="col-md-5">
+    <h5>STAFF:</h5>
+    <hr />
+    <div class="card card-body">
+      <a class="btn btn-primary btn-sm btn-block" href="">Create Staff </a>
+      <table class="table table-sm">
+        <tr>
+          <th></th>
+          <th>Staff ID</th>
+          <th>Items</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <h5>LAST 5 ITEMS</h5>
+    <hr />
+    <div class="card card-body">
+      <a class="btn btn-primary btn-sm btn-block" href="">Create Items</a>
+      <table class="table table-sm">
+        <tr>
+          <th>Item name</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Update</th>
+          <th>Remove</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock content %}
