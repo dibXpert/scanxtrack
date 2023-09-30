@@ -32,7 +32,7 @@
     </div>
   </div>
   <div class="col-md-7">
-    <h5>LAST 5 ITEMS</h5>
+    <h5>Recent History</h5>
     <hr />
     <div class="card card-body">
       <a
@@ -53,8 +53,9 @@
           <td>{{i.staff}}</td>
           <td>{{i.item}}</td>
           <td>{{i.status}}</td>
-          <td><a class="btn btn-sm btn-info" href="">Update</a></td>
-          <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+          <td>
+            <a class="btn btn-sm btn-info" href="{% url 'update_borrow' i.id%}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'delete_borrow' i.id%}">Delete</a ></td>
         </tr>
         {% endfor %}
       </table>

@@ -9,14 +9,14 @@ def home(request):
     items = Item.objects.all()
      
     total_staff = staff.count()
-    total_items = items.count()
+    total_amount = sum(item.amount for item in items)
    
     borrowed = borrowed_items.filter(status='Borrowed').count()
     returned = borrowed_items.filter(status='Returned').count()
     
     
     context = {'borrowed_items': borrowed_items, 'staff':staff, 'items':staff, 'total_staff':total_staff, 'borrowed':borrowed,
-                'returned':returned,'total_items':total_items}
+                'returned':returned, 'total_amount':total_amount}
     
     return render(request,'accounts/dashboard.html', context)
 
@@ -40,5 +40,25 @@ def createBorrow(request):
             return redirect ('/')
     
     context = {'form': form}
-    return render(request, 'accounts/borrow_form', context)
+    return render(request, 'accounts/borrow_form.html', context)
     
+def updateBorrow(request, pk):
+    borrowed = Borrowed_items.objects.get(id=pk)
+    form = Borrowed_items_form(instance=borrowed)
+    if request.method == 'POST':
+        form = Borrowed_items_form(request.POST, instance=borrowed)
+        if form.is_valid():
+            form.save()
+            return redirect ('/')
+        
+    context = {'form':form}
+    return render(request, 'accounts/borrow_form.html',context)
+
+def deleteBorrow(request, pk):
+    borrowed = Borrowed_items.objects.get(id=pk)
+    if request.method == "POST":
+        borrowed.delete()
+        return redirect ('/')
+    
+    context = {'item':borrowed}
+    return render(request, 'accounts/delete.html', context)

@@ -32,4 +32,7 @@ class Borrowed_items(models.Model):
   #  return_time = models.DateTimeField(auto_now_add=True)
     date_created = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return self.item.name
+    
     

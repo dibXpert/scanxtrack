@@ -6,9 +6,7 @@
       <h5>Staff:</h5>
       <hr />
       <a class="btn btn-outline-info btn-sm btn-block" href="">Update Staff</a>
-      <a class="btn btn-outline-danger btn-sm btn-block" href=""
-        >Delete Staff</a
-      >
+      <a class="btn btn-outline-danger btn-sm btn-block" href="">Delete Staff</a>
     </div>
   </div>
   <div class="col-md">
@@ -61,8 +59,12 @@
           <td>{{i.date_created}}</td>
           <td>{{i.status}}</td>
           <td>Duration</td>
-          <td><a class="btn btn-sm btn-info" href="">Update</a></td>
-          <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+          <td>
+            <a class="btn btn-sm btn-info" href="{% url 'update_borrow' i.id%}">Update</a>
+          </td>
+          <td>
+            <a class="btn btn-sm btn-danger" href="{% url 'delete_borrow' i.id%}">Delete</a>
+          </td>
         </tr>
         {% endfor %}
       </table>
