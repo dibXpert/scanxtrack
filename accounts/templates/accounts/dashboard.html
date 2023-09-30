@@ -1,4 +1,6 @@
-{% extends 'accounts/main.html' %} {% block content %} {% include 'accounts/status.html' %}
+{% extends 'accounts/main.html' %} {% block content %}
+<!---->
+{%include 'accounts/status.html'%}
 
 <br />
 <div class="row">
@@ -10,9 +12,18 @@
       <table class="table table-sm">
         <tr>
           <th></th>
-          <th>Staff ID</th>
-          <th>Items</th>
+          <th>Name</th>
+          <th>Phone</th>
         </tr>
+        {% for i in staff %}
+        <tr>
+          <td><a class="btn btn-sm btn-info" href="{% url 'staff' i.id %}">View</a></td>
+
+          <td>{{i.name}}</td>
+          <td>{{i.phone}}</td>
+        </tr>
+
+        {% endfor %}
       </table>
     </div>
   </div>
@@ -23,12 +34,21 @@
       <a class="btn btn-primary btn-sm btn-block" href="">Create Items</a>
       <table class="table table-sm">
         <tr>
-          <th>Item name</th>
-          <th>Total</th>
+          <th>Staff</th>
+          <th>Item</th>
           <th>Status</th>
           <th>Update</th>
           <th>Remove</th>
         </tr>
+        {% for i in borrowed_items %}
+        <tr>
+          <td>{{i.staff}}</td>
+          <td>{{i.item}}</td>
+          <td>{{i.status}}</td>
+          <td><a class="btn btn-sm btn-info" href="">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+        </tr>
+        {% endfor %}
       </table>
     </div>
   </div>

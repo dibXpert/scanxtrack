@@ -15,16 +15,17 @@
     <div class="card card-body">
       <h5>Contact Information</h5>
       <hr />
-      <p>Username:</p>
-      <p>Email:</p>
-      <p>Phone:</p>
+
+      <p>Username: {{staff.name}}</p>
+      <p>Email: {{staff.email}}</p>
+      <p>Phone: {{staff.phone}}</p>
     </div>
   </div>
   <div class="col-md">
     <div class="card card-body">
-      <h5>Total Borrowed</h5>
+      <h5>Borrowed Items</h5>
       <hr />
-      <h1 style="text-align: center; padding: 10px"></h1>
+      <h1 style="text-align: center; padding: 10px">{{total_borrowed}}</h1>
     </div>
   </div>
 </div>
@@ -47,13 +48,23 @@
         <h5>History</h5>
         <tr>
           <th>Item</th>
-          <th>Category</th>
           <th>Date</th>
           <th>Status</th>
           <th>Duration</th>
           <th>Update</th>
           <th>Remove</th>
         </tr>
+
+        {% for i in borrows %}
+        <tr>
+          <td>{{i.item}}</td>
+          <td>{{i.date_created}}</td>
+          <td>{{i.status}}</td>
+          <td>Duration</td>
+          <td><a class="btn btn-sm btn-info" href="">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+        </tr>
+        {% endfor %}
       </table>
     </div>
   </div>

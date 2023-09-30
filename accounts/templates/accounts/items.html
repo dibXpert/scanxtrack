@@ -11,9 +11,18 @@
       <table class="table">
         <tr>
           <th>Item name</th>
-          <th>Category</th>
+
           <th>Amount</th>
         </tr>
+
+        {% for i in items%}
+        <tr>
+          <td>{{i.name}}</td>
+
+          <td>{{i.amount}}</td>
+        </tr>
+
+        {% endfor %}
       </table>
     </div>
   </div>

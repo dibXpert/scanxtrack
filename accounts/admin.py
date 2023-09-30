@@ -5,4 +5,4 @@ from .models import *
 
 admin.site.register(Staff)
 admin.site.register(Item)
-admin.site.register(History)
+admin.site.register(Borrowed_items)
