@@ -18,9 +18,7 @@
         {% for i in staff %}
         <tr>
           <td>
-            <a class="btn btn-sm btn-info" href="{% url 'staff' i.id %}"
-              >View</a
-            >
+            <a class="btn btn-sm btn-info" href="{% url 'staff' i.id %}">View</a>
           </td>
 
           <td>{{i.name}}</td>
@@ -35,11 +33,6 @@
     <h5>Recent History</h5>
     <hr />
     <div class="card card-body">
-      <a
-        class="btn btn-primary btn-sm btn-block"
-        href="{% url 'create_borrow' %}"
-        >Borrow/Return</a
-      >
       <table class="table table-sm">
         <tr>
           <th>Staff</th>
@@ -54,8 +47,9 @@
           <td>{{i.item}}</td>
           <td>{{i.status}}</td>
           <td>
-            <a class="btn btn-sm btn-info" href="{% url 'update_borrow' i.id%}">Update</a></td>
-          <td><a class="btn btn-sm btn-danger" href="{% url 'delete_borrow' i.id%}">Delete</a ></td>
+            <a class="btn btn-sm btn-info" href="{% url 'update_borrow' i.id%}">Update</a>
+          </td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'delete_borrow' i.id%}">Delete</a></td>
         </tr>
         {% endfor %}
       </table>
