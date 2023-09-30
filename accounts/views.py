@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-
+from .forms import Borrowed_items_form
 # Create your views here.
 def home(request):
     borrowed_items = Borrowed_items.objects.all()
@@ -31,4 +31,14 @@ def staff(request,pk):
     context = {'staff':staff, 'borrows':borrows, 'total_borrowed':total_borrowed}
     return render(request,'accounts/staff.html',context)
 
-   
+def createBorrow(request):
+    form = Borrowed_items_form()
+    if request.method == 'POST':
+        form = Borrowed_items_form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect ('/')
+    
+    context = {'form': form}
+    return render(request, 'accounts/borrow_form', context)
+    

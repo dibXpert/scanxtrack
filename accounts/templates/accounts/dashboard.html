@@ -17,7 +17,11 @@
         </tr>
         {% for i in staff %}
         <tr>
-          <td><a class="btn btn-sm btn-info" href="{% url 'staff' i.id %}">View</a></td>
+          <td>
+            <a class="btn btn-sm btn-info" href="{% url 'staff' i.id %}"
+              >View</a
+            >
+          </td>
 
           <td>{{i.name}}</td>
           <td>{{i.phone}}</td>
@@ -31,7 +35,11 @@
     <h5>LAST 5 ITEMS</h5>
     <hr />
     <div class="card card-body">
-      <a class="btn btn-primary btn-sm btn-block" href="">Create Items</a>
+      <a
+        class="btn btn-primary btn-sm btn-block"
+        href="{% url 'create_borrow' %}"
+        >Borrow/Return</a
+      >
       <table class="table table-sm">
         <tr>
           <th>Staff</th>
@@ -53,4 +61,5 @@
     </div>
   </div>
 </div>
+
 {% endblock content %}
