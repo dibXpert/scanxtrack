@@ -29,6 +29,11 @@ def staff(request,pk):
     staff = Staff.objects.get(id=pk)
     borrows = staff.borrowed_items_set.all()
     total_borrowed = borrows.filter(status='Borrowed').count()
+   
+   
+   
+   
+   
     context = {'staff':staff, 'borrows':borrows, 'total_borrowed':total_borrowed}
     return render(request,'accounts/staff.html',context)
 
