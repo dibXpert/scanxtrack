@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.forms import inlineformset_factory
+#from django.forms import inlineformset_factory
 from .models import *
 from .forms import BorrowedForm
 # Create your views here.
@@ -32,15 +32,16 @@ def staff(request,pk):
     context = {'staff':staff, 'borrows':borrows, 'total_borrowed':total_borrowed}
     return render(request,'accounts/staff.html',context)
 
-def createBorrow(request):
-    form = BorrowedForm()
+def createBorrow(request,pk):
+    staff = Staff.objects.get(id=pk)
+    form = BorrowedForm(initial={'staff':staff})
     if request.method == 'POST':
         form = BorrowedForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/')
     
-    context = {'form':form}
+    context = {'staff':staff,'form':form}
     return render(request,'accounts/borrow_form.html', context)
 
 def updateBorrow(request, pk):
