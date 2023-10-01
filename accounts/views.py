@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from .models import *
-from .forms import Borrowed_items_form
+from .forms import BorrowedForm
 # Create your views here.
 def home(request):
     borrowed_items = Borrowed_items.objects.all()
@@ -32,38 +32,61 @@ def staff(request,pk):
     context = {'staff':staff, 'borrows':borrows, 'total_borrowed':total_borrowed}
     return render(request,'accounts/staff.html',context)
 
-def createBorrow(request,pk):
-    BorrowFormSet = inlineformset_factory(Staff, Borrowed_items, fields=('item','status'), extra=5)
-    staff = Staff.objects.get(id=pk)
-    formset = BorrowFormSet(queryset=Borrowed_items.objects.none(), instance=staff)
-    #form = Borrowed_items_form(initial={'staff':staff})
+def createBorrow(request):
+    form = BorrowedForm()
     if request.method == 'POST':
-        #form = Borrowed_items_form(request.POST)
-        formset = BorrowFormSet(request.POST, instance=staff)
-        if formset.is_valid():
-            formset.save()
-            return redirect ('/')
-    
-    context = {'formset': formset}
-    return render(request, 'accounts/borrow_form.html', context)
-    
-def updateBorrow(request, pk):
-    borrowed = Borrowed_items.objects.get(id=pk)
-    form = Borrowed_items_form(instance=borrowed)
-    if request.method == 'POST':
-        form = Borrowed_items_form(request.POST, instance=borrowed)
+        form = BorrowedForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect ('/')
-        
+            return redirect('/')
+    
+    context = {'form':form}
+    return render(request,'accounts/borrow_form.html', context)
+
+def updateBorrow(request, pk):
+    borrow = Borrowed_items.objects.get(id=pk)
+    form = BorrowedForm(instance=borrow)
+    if request.method == 'POST':
+        form = BorrowedForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
     context = {'form':form}
     return render(request, 'accounts/borrow_form.html',context)
 
 def deleteBorrow(request, pk):
-    borrowed = Borrowed_items.objects.get(id=pk)
+    borrow = Borrowed_items.objects.get(id=pk)
     if request.method == "POST":
-        borrowed.delete()
+        borrow.delete()
         return redirect ('/')
     
-    context = {'item':borrowed}
-    return render(request, 'accounts/delete.html', context)
+    context = {'item':borrow}
+    return render(request, 'accounts/delete.html', context)    
+
+# def createBorrow(request, pk):
+#     BorrowFormSet = inlineformset_factory(Staff, Borrowed_items, fields=('item', 'status'), extra=5)
+#     staff = Staff.objects.get(id=pk)
+#     formset = BorrowFormSet(queryset=Borrowed_items.objects.none(), instance=staff)
+    
+#     if request.method == 'POST':
+#         formset = BorrowFormSet(request.POST, instance=staff)
+#         if formset.is_valid():
+#             formset.save()
+#             return redirect('/')
+    
+#     context = {'form_or_formset': formset}
+#     return render(request, 'accounts/borrow_form.html', context)
+
+# def updateBorrow(request, pk):
+#     borrowed = Borrowed_items.objects.get(id=pk)
+#     form = Borrowed_items_form(instance=borrowed)
+    
+#     if request.method == 'POST':
+#         form = Borrowed_items_form(request.POST, instance=borrowed)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/')
+        
+#     context = {'form_or_formset': form}
+#     return render(request, 'accounts/borrow_form.html', context)
+
