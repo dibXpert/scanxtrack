@@ -3,6 +3,7 @@ from django.http import HttpResponse
 #from django.forms import inlineformset_factory
 from .models import *
 from .forms import BorrowedForm
+from .filters import BorrowFilter
 # Create your views here.
 def home(request):
     borrowed_items = Borrowed_items.objects.all()
@@ -30,11 +31,12 @@ def staff(request,pk):
     borrows = staff.borrowed_items_set.all()
     total_borrowed = borrows.filter(status='Borrowed').count()
    
+    myFilter = BorrowFilter(request.GET, queryset=borrows)
+    borrows = myFilter.qs
    
    
    
-   
-    context = {'staff':staff, 'borrows':borrows, 'total_borrowed':total_borrowed}
+    context = {'staff':staff, 'borrows':borrows, 'total_borrowed':total_borrowed, 'myFilter': myFilter}
     return render(request,'accounts/staff.html',context)
 
 def createBorrow(request,pk):
