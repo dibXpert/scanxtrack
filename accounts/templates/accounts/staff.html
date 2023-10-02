@@ -34,7 +34,7 @@
     <div class="card card-body">
 
       <form method="get">
-            {{myFilter.form}}
+        {{myFilter.form}}
         <button class="btn btn-primary" type="submit">Search</button>
       </form>
 
@@ -45,7 +45,9 @@
 
 <div class="row">
   <div class="col-md">
-    <div class="card card-body">
+
+    <!-- Add the Bootstrap class for responsiveness and vertical scroll -->
+    <div class="card card-body table-responsive " style="max-height: 400px; overflow-y: auto;">
       <table class="table table-sm">
         <h5>History</h5>
         <tr>
@@ -73,6 +75,6 @@
         {% endfor %}
       </table>
     </div>
-  </div>    
+  </div>
 </div>
 {% endblock content %}
