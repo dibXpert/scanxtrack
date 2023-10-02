@@ -16,6 +16,7 @@ def registerPage(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('login')
     
     
     
