@@ -120,6 +120,7 @@ def updateBorrow(request, pk):
     context = {'form':form}
     return render(request, 'accounts/borrow_form.html',context)
 
+#if use formset the update part has problem.
 @login_required(login_url='login')
 def deleteBorrow(request, pk):
     borrow = Borrowed_items.objects.get(id=pk)
