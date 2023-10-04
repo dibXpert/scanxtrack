@@ -131,30 +131,3 @@ def deleteBorrow(request, pk):
     context = {'item':borrow}
     return render(request, 'accounts/delete.html', context)    
 
-# def createBorrow(request, pk):
-#     BorrowFormSet = inlineformset_factory(Staff, Borrowed_items, fields=('item', 'status'), extra=5)
-#     staff = Staff.objects.get(id=pk)
-#     formset = BorrowFormSet(queryset=Borrowed_items.objects.none(), instance=staff)
-    
-#     if request.method == 'POST':
-#         formset = BorrowFormSet(request.POST, instance=staff)
-#         if formset.is_valid():
-#             formset.save()
-#             return redirect('/')
-    
-#     context = {'form_or_formset': formset}
-#     return render(request, 'accounts/borrow_form.html', context)
-
-# def updateBorrow(request, pk):
-#     borrowed = Borrowed_items.objects.get(id=pk)
-#     form = Borrowed_items_form(instance=borrowed)
-    
-#     if request.method == 'POST':
-#         form = Borrowed_items_form(request.POST, instance=borrowed)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/')
-        
-#     context = {'form_or_formset': form}
-#     return render(request, 'accounts/borrow_form.html', context)
-
