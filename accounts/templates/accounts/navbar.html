@@ -17,16 +17,20 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
+
+<!--staff status in django admin-->
+      {% if request.user.is_staff %}
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'home' %}">Dashboard </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'items' %}">Items</a>
       </li>
+      {% endif %}
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'logout' %}">Logout</a>
       </li>
-   
+
   </div>
 
 
