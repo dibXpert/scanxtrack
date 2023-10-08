@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import BorrowedForm, CreateUserForm
 from .filters import BorrowFilter
-from .decorators import unauthenticated_user
+from .decorators import unauthenticated_user, allowed_users, admin_only
 
 # Create your views here.
 
@@ -63,6 +63,8 @@ def logoutUser(request):
 
 
 @login_required(login_url="login")
+# @allowed_users(allowed_roles=['admin'])
+@admin_only
 def home(request):
     borrowed_items = Borrowed_items.objects.all()
     staff = Staff.objects.all()
@@ -88,12 +90,14 @@ def home(request):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def items(request):
     items = Item.objects.all()
     return render(request, "accounts/items.html", {"items": items})
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def staff(request, pk):
     staff = Staff.objects.get(id=pk)
     borrows = staff.borrowed_items_set.all()
@@ -112,6 +116,7 @@ def staff(request, pk):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def createBorrow(request, pk):
     staff = Staff.objects.get(id=pk)
     form = BorrowedForm(initial={"staff": staff})
@@ -126,6 +131,7 @@ def createBorrow(request, pk):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def updateBorrow(request, pk):
     borrow = Borrowed_items.objects.get(id=pk)
     form = BorrowedForm(instance=borrow)
@@ -140,6 +146,7 @@ def updateBorrow(request, pk):
 
 # if use formset the update part has problem.
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def deleteBorrow(request, pk):
     borrow = Borrowed_items.objects.get(id=pk)
     if request.method == "POST":
@@ -148,3 +155,9 @@ def deleteBorrow(request, pk):
 
     context = {"item": borrow}
     return render(request, "accounts/delete.html", context)
+
+
+def userPage(request):
+    context = {}
+
+    return render(request, "accounts/user-page.html", context)

@@ -11,6 +11,8 @@ urlpatterns = [
     path('items/', views.items, name="items"),
     path('staff/<str:pk>', views.staff, name="staff"),
     
+    path('user-page/', views.userPage, name="user-page"),
+    
     path('create_borrow/<str:pk>', views.createBorrow, name="create_borrow"),
     path('update_borrow/<str:pk>', views.updateBorrow, name="update_borrow"),
     path('delete_borrow/<str:pk>', views.deleteBorrow, name="delete_borrow")
