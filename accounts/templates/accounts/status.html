@@ -1,52 +1,58 @@
 <br />
 <div class="row">
+  <!--If not admin cant see total users -->
+  {% if request.user.is_staff %}
   <div class="col">
     <div class="col-md">
       <div class="card text-center text-white mb-3" id="total-orders">
-      <div class="card-header">
-        <h5 class="card-title">Total Users</h5>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">{{total_staff}}</h3>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="col">
-  <div class="col-md">
-    <div class="card text-center text-white mb-3" id="orders-delivered">
-      <div class="card-header">
-        <h5 class="card-title">Total Items</h5>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">{{total_amount}}</h3>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="col">
-  <div class="col-md">
-    <div class="card text-center text-white mb-3" id="orders-pending">
-      <div class="card-header">
-        <h5 class="card-title">Borrowed Items</h5>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">{{borrowed}}</h3>
-      </div>
-    </div>
-  </div>
-</div>
+        <div class="card-header">
 
-<div class="col">
-    <div class="col-md">
-     <div class="card text-center text-white mb-3" id="orders-pending">
-         <div class="card-header">
-             <h5 class="card-title">Returned Items</h5>
-         </div>
+
+          <h5 class="card-title">Total Users</h5>
+        </div>
         <div class="card-body">
-             <h3 class="card-title">{{returned}}</h3>
-         </div>
-     </div>
+          <h3 class="card-title">{{total_staff}}</h3>
+        </div>
+      </div>
     </div>
- </div>
+  </div>
+
+  <div class="col">
+    <div class="col-md">
+      <div class="card text-center text-white mb-3" id="orders-delivered">
+        <div class="card-header">
+          <h5 class="card-title">Total Items</h5>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{total_amount}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="col">
+    <div class="col-md">
+      <div class="card text-center text-white mb-3" id="total-orders">
+        <div class="card-header">
+          <h5 class="card-title">Borrowed Items</h5>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{borrowed}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="col-md">
+      <div class="card text-center text-white mb-3" id="orders-pending">
+        <div class="card-header">
+          <h5 class="card-title">Returned Items</h5>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{returned}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

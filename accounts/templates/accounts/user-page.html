@@ -2,6 +2,38 @@
 <!---->
 {%include 'accounts/status.html'%}
 
-<h5>User Profile</h5>
+<div class="row">
+    <div class="col-md">
+        <!-- Add the Bootstrap class for responsiveness and vertical scroll -->
+        <div class="card card-body table-responsive " style="max-height: 400px; overflow-y: auto;">
+            <table class="table table-sm">
+                <h5>History</h5>
+                <tr>
+                    <th>Item</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                    <th>Action</th>
+
+                </tr>
+
+                {% for i in borrows %}
+                <tr>
+                    <td>{{i.item}}</td>
+                    <td>{{i.date_created}}</td>
+                    <td>{{i.status}}</td>
+                    <td>Duration</td>
+                    <!---if status != 'return' : return -->
+                    <!--click button to change status to 'return'-->
+                    <td>
+                        <a class="btn btn-sm btn-info" href="">Return</a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
 
 {%endblock content%}

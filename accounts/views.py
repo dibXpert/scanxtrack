@@ -32,6 +32,9 @@ def registerPage(request):
 
             group = Group.objects.get(name="staff")
             user.groups.add(group)
+            Staff.objects.create(
+                user=user,
+            )
 
             messages.success(request, "Account was created for " + username)
 
@@ -92,6 +95,28 @@ def home(request):
     }
 
     return render(request, "accounts/dashboard.html", context)
+
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["staff"])
+def userPage(request):
+    borrows = request.user.staff.borrowed_items_set.all()
+
+    items = Item.objects.all()
+
+    total_amount = sum(item.amount for item in items)
+    borrowed = borrows.filter(status="Borrowed").count()
+    returned = borrows.filter(status="Returned").count()
+
+    context = {
+        "borrows": borrows,
+        "borrowed": borrowed,
+        "returned": returned,
+        "total_amount": total_amount,
+        "items": staff,
+    }
+
+    return render(request, "accounts/user-page.html", context)
 
 
 @login_required(login_url="login")
@@ -160,9 +185,3 @@ def deleteBorrow(request, pk):
 
     context = {"item": borrow}
     return render(request, "accounts/delete.html", context)
-
-
-def userPage(request):
-    context = {}
-
-    return render(request, "accounts/user-page.html", context)
