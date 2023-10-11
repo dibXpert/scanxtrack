@@ -120,6 +120,13 @@ def userPage(request):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["staff"])
+def accountSettings(request):
+    context = {}
+    return render(request, "accounts/account_settings.html", context)
+
+
+@login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
 def items(request):
     items = Item.objects.all()
