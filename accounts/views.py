@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 from .models import *
-from .forms import BorrowedForm, CreateUserForm
+from .forms import BorrowedForm, CreateUserForm, StaffForm
 from .filters import BorrowFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
@@ -122,7 +122,15 @@ def userPage(request):
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["staff"])
 def accountSettings(request):
-    context = {}
+    staff = request.user.staff
+    form = StaffForm(instance=staff)
+
+    if request.method == "POST":
+        form = StaffForm(request.POST, request.FILES, instance=staff)
+        if form.is_valid():
+            form.save()
+
+    context = {"form": form}
     return render(request, "accounts/account_settings.html", context)
 
 
